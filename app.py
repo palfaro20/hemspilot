@@ -17,8 +17,8 @@ lista_clo = pd.read_csv("data/Aislamiento.csv")
 st.set_page_config(
     page_title="Sistema HEMS - Evaluación de Estrés Térmico",
     page_icon="🔥",
-    layout="centered",
-    st.image("logo.png", width="content", use_column_width=None) ,
+    layout="centered", 
+    st.image("logo.png"),
 )
 
 # Título principal
@@ -638,6 +638,7 @@ if estado== "Discomfort":
     else: 
         st.write("No se cuenta con una metodologia para evaluar discomfort en exteriores")
         
+
 
 
 
