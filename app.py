@@ -23,7 +23,7 @@ st.set_page_config(
 # Título principal
 st.title("🔥 Sistema HEMS - Evaluación de Estrés Térmico")
 st.markdown("---")
-st.image("logo.png")
+st.image("logo.png",caption=None,width="content")
 
 # Mensaje de bienvenida
 st.header("🌡️ Bienvenido al Sistema HEMS")
@@ -638,6 +638,7 @@ if estado== "Discomfort":
     else: 
         st.write("No se cuenta con una metodologia para evaluar discomfort en exteriores")
         
+
 
 
 
