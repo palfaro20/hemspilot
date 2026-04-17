@@ -642,7 +642,7 @@ if estado == "Discomfort":
         conjuntos_clofanger = lista_clofanger.iloc[:, 0].tolist()
         seleccion_clofanger = st.selectbox("Seleccione el conjunto que utilizan los trabajadores:",conjuntos_clofanger
         )
-        iclofanger = lista_clofanger[lista_clofanger["Ropa de trabajo"] == seleccion_clofanger]["clo"].iloc[0]
+        iclofanger = lista_clofanger[lista_clofanger["Ropa diaria"] == seleccion_clofanger]["clo"].iloc[0]
         mostrar_fanger = st.button("Calcular Fanger")
         # -------------------------
         # CÁLCULO FANGER
