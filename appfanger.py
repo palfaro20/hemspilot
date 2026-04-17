@@ -686,8 +686,7 @@ if estado == "Discomfort":
             posicion = max(0, min(100, ((resultado_pmv + 3) / 6) * 100))
             st.markdown("### Voto Medio Estimado (PMV)")
             st.write(f"**Nivel térmico:** {nivel_actualf}")
-            st.write(f"**PMV:** {resultado_pmv:.2f}")
-            st.write(f"**PPD:** {resultado_ppd:.1f} %")
+          
             
             progreso = max(0, min(100, ((resultado_pmv + 3) / 6) * 100))
             if resultado_pmv <= -1:
