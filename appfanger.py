@@ -632,24 +632,45 @@ if estado == "Estrés Térmico":
                 - 💀 **Crítica (>100%):** Intervención inmediata
                 """)
     
+
+            
+
 if estado == "Discomfort":
     if radiacion_solar == "No":
+
         st.write("### Método de evaluación: Fanger")
         st.write("Ya que el trabajador no se encuentra en estrés térmico, se recomienda utilizar el método de evaluación Fanger.")
         st.write("Para el método Fanger es necesario indicar el trabajo externo, la temperatura radiante media y el factor clo de la ropa.")
+
         trabajo = st.number_input("Ingrese el trabajo externo (W/m²)", min_value=0, max_value=600, value=0, step=10)
-        temp_radiante_media = st.number_input("Ingrese la temperatura radiante media (°C)",min_value=10,max_value=40,value=18,step=1)
+        temp_radiante_media = st.number_input("Ingrese la temperatura radiante media (°C)", min_value=10, max_value=40, value=18, step=1)
+
         conjuntos_clofanger = lista_clofanger.iloc[:, 0].tolist()
-        seleccion_clofanger = st.selectbox("Seleccione el conjunto que utilizan los trabajadores:",conjuntos_clofanger
+        seleccion_clofanger = st.selectbox(
+            "Seleccione el conjunto que utilizan los trabajadores:",
+            conjuntos_clofanger
         )
-        iclofanger = lista_clofanger[lista_clofanger["Ropa diaria"] == seleccion_clofanger]["clo"].iloc[0]
+
+        # 🔹 Asegúrate que el nombre de la columna sea EXACTO
+        iclofanger = lista_clofanger.loc[
+            lista_clofanger["Ropa diaria"] == seleccion_clofanger, "clo"
+        ].iloc[0]
+
         mostrar_fanger = st.button("Calcular Fanger")
-        # -------------------------
-        # CÁLCULO FANGER
-        # -------------------------
+
         if mostrar_fanger:
-            resultado_pmv, resultado_ppd = fanger(iclofanger,carga_metabolica,trabajo,temp_aire,temp_radiante_media,velocidad_aire,humedad_relativa,None
+
+            resultado_pmv, resultado_ppd = fanger(
+                iclofanger,
+                carga_metabolica,
+                trabajo,
+                temp_aire,
+                temp_radiante_media,
+                velocidad_aire,
+                humedad_relativa,
+                None
             )
+
             st.success("✅ Cálculo del Método Fanger completado exitosamente.")
 
             # -------------------------
@@ -670,16 +691,19 @@ if estado == "Discomfort":
             else:
                 nivel_actualf = "Fuera de escala"
 
-                # -------------------------
-                # BARRA VISUAL PMV
-                # -------------------------
+            # -------------------------
+            # BARRA VISUAL PMV
+            # -------------------------
             posicion = ((resultado_pmv + 3) / 6) * 100
+            posicion = max(0, min(100, posicion))  # 🔹 evita desbordes
+
             st.markdown("### Voto Medio Estimado (PMV)")
             st.write(f"**Nivel térmico:** {nivel_actualf}")
             st.write(f"**PMV:** {resultado_pmv:.2f}")
             st.write(f"**PPD:** {resultado_ppd:.1f} %")
+
             st.markdown(
-                    f"""
+                f"""
                 <div style="position: relative; height: 40px; 
                             background: linear-gradient(to right, 
                             blue, deepskyblue, lightgreen, green, yellow, orange, red); 
@@ -706,8 +730,9 @@ if estado == "Discomfort":
                 """,
                 unsafe_allow_html=True
             )
+
             # -------------------------
-            # ADECUACIÓN AMBIENTAL
+            # ADECUACIÓN
             # -------------------------
             if -0.5 <= resultado_pmv <= 0.5:
                 st.success("La situación es ambientalmente ADECUADA")
@@ -715,55 +740,49 @@ if estado == "Discomfort":
                 st.error("La situación es ambientalmente INADECUADA")
 
             # -------------------------
-            # # SECCIÓN PPD
+            # SECCIÓN PPD
             # -------------------------
             st.markdown("## Porcentaje de Insatisfechos (PPD)")
             st.write("Estimación de trabajadores insatisfechos y satisfechos")
+
             insatisfechos = resultado_ppd
             satisfechos = 100 - resultado_ppd
-            # Barra Insatisfechos (roja suave)
-            st.markdown("### 😥Insatisfechos")
-            st.markdown(
-                    f"""
-                    <div style="
-                        background-color: #e8caca;
-                        padding: 15px;
-                        border-radius: 8px;
-                        text-align: center;
-                        font-size: 22px;
-                        font-weight: bold;
-                        color: #a94442;">
-                        {insatisfechos:.2f} %
-                    </div>
-                    """,
-                    unsafe_allow_html=True
-                )
 
-            #Espacio visual
+            st.markdown("### 😥 Insatisfechos")
+            st.markdown(
+                f"""
+                <div style="
+                    background-color: #e8caca;
+                    padding: 15px;
+                    border-radius: 8px;
+                    text-align: center;
+                    font-size: 22px;
+                    font-weight: bold;
+                    color: #a94442;">
+                    {insatisfechos:.2f} %
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
             st.write("")
 
-            # Barra Satisfechos (verde)
             st.markdown("### 🙂 Satisfechos")
             st.markdown(
-                    f"""
-                    <div style="
-                        background-color: #5cb85c;
-                        padding: 15px;
-                        border-radius: 8px;
-                        text-align: center;
-                        font-size: 22px;
-                        font-weight: bold;
-                        color: white;">
-                        {satisfechos:.2f} %
-                    </div>
-                    """,
-                    unsafe_allow_html=True
-                )
-
-
-
-
-
+                f"""
+                <div style="
+                    background-color: #5cb85c;
+                    padding: 15px;
+                    border-radius: 8px;
+                    text-align: center;
+                    font-size: 22px;
+                    font-weight: bold;
+                    color: white;">
+                    {satisfechos:.2f} %
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
 
 
 
