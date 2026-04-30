@@ -25,6 +25,7 @@ st.set_page_config(
 )
 
 # Título principal
+st.image("logo.png",caption=None,width="content")
 st.title("🔥 Sistema HEMS - Evaluación de Estrés Térmico")
 st.markdown("---")
 
