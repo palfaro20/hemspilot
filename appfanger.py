@@ -639,7 +639,6 @@ if estado == "Discomfort":
         st.write("Ya que el trabajador no se encuentra en estrés térmico, se recomienda utilizar el método de evaluación Fanger.")
         st.write("Para el método Fanger es necesario indicar el trabajo externo, la temperatura radiante media y el factor clo de la ropa.")
         trabajo = 0
-        temp_radiante_media = st.number_input("Ingrese la temperatura radiante media (°C)",min_value=10,max_value=40,value=18,step=1)
         conjuntos_clofanger = lista_clofanger.iloc[:, 0].tolist()
         seleccion_clofanger = st.selectbox("Seleccione el conjunto que utilizan los trabajadores:",conjuntos_clofanger
         )
