@@ -316,7 +316,7 @@ def sanitize_file(uploaded_file):
     return sanitized_df
 
 #Función para Fanger (Confort térmico)
-def fanger(iclo, carga_metabolica, trabajo, temperatura_aire, temp_globo, velocidad_aire, humedad_relativa=None, pa=None):
+def fanger(iclo, carga_metabolica, trabajo, temp_aire, temp_globo, velocidad_aire, humedad_relativa=None, pa=None):
     """
     Cálculo del PMV y PPD según ISO 7730
     Parámetros:
@@ -335,7 +335,7 @@ def fanger(iclo, carga_metabolica, trabajo, temperatura_aire, temp_globo, veloci
         return math.exp(16.6536 - 4030.183 / (t + 235))
 
     if pa is None:
-        pa = humedad_relativa * 10 * fnps(temperatura_aire)
+        pa = humedad_relativa * 10 * fnps(temp_aire)
 
     iclo = 0.155 * iclo
     #carga_metabolica = carga_metabolica * 58.15
@@ -350,15 +350,15 @@ def fanger(iclo, carga_metabolica, trabajo, temperatura_aire, temp_globo, veloci
 
     hcf = 12.1 * math.sqrt(velocidad_aire)
     if velocidad_aire > 0.15:
-            temp_radiante_media = ((((temp_globo + 273)**4) + (2.5 * (10**8)) * (velocidad_aire**0.6) * (temp_globo - temperatura_aire))**0.25) - 273
+            temp_radiante_media = ((((temp_globo + 273)**4) + (2.5 * (10**8)) * (velocidad_aire**0.6) * (temp_globo - temp_aire))**0.25) - 273
     else:
-            temp_radiante_media = ((((temp_globo + 273)**4) + (0.42 * (10**8))*((temp_globo - temperatura_aire)**0.25)*(temp_globo - temperatura_aire))**0.25)- 273
+            temp_radiante_media = ((((temp_globo + 273)**4) + (0.42 * (10**8))*((temp_globo - temp_aire)**0.25)*(temp_globo - temp_aire))**0.25)- 273
 
-    temperatura_aireK = temperatura_aire + 273 #Temperatura del aire en Kelvin
+    temperatura_aireK = temp_aire + 273 #Temperatura del aire en Kelvin
     temp_radiante_mediaK = temp_radiante_media + 273 #Temperatura radiante media en Kelvin
 
     # Estimación inicial de tclo
-    tcla = temperatura_aireK + (35.5 - temperatura_aire) / (3.5 * iclo+ 0.1)
+    tcla = temperatura_aireK + (35.5 - temp_aire) / (3.5 * iclo+ 0.1)
     #Constantes de iteración
     p1 = iclo * fclo
     p2 = p1 * 3.96
