@@ -638,7 +638,7 @@ if estado == "Discomfort":
         st.write("### Método de evaluación: Fanger")
         st.write("Ya que el trabajador no se encuentra en estrés térmico, se recomienda utilizar el método de evaluación Fanger.")
         st.write("Para el método Fanger es necesario indicar el trabajo externo, la temperatura radiante media y el factor clo de la ropa.")
-        trabajo = st.number_input("Ingrese el trabajo externo (W/m²)", min_value=0, max_value=600, value=0, step=10)
+        trabajo = 0
         temp_radiante_media = st.number_input("Ingrese la temperatura radiante media (°C)",min_value=10,max_value=40,value=18,step=1)
         conjuntos_clofanger = lista_clofanger.iloc[:, 0].tolist()
         seleccion_clofanger = st.selectbox("Seleccione el conjunto que utilizan los trabajadores:",conjuntos_clofanger
@@ -649,7 +649,7 @@ if estado == "Discomfort":
         # CÁLCULO FANGER
         # -------------------------
         if mostrar_fanger:
-            resultado_pmv, resultado_ppd = fanger(iclofanger,carga_metabolica,trabajo,temp_aire,temp_radiante_media,velocidad_aire,humedad_relativa,None
+            resultado_pmv, resultado_ppd = fanger(iclofanger,carga_metabolica,trabajo,temp_aire,temp_globo,velocidad_aire,humedad_relativa,None
             )
             st.success("✅ Cálculo del Método Fanger completado exitosamente.")
 
