@@ -316,7 +316,7 @@ def sanitize_file(uploaded_file):
     return sanitized_df
 
 #Función para Fanger (Confort térmico)
-def fanger(iclo, carga_metabolica, trabajo, temperatura_aire, temp_radiante_media, velocidad_aire, humedad_relativa=None, pa=None):
+def fanger(iclo, carga_metabolica, trabajo, temperatura_aire, temp_globo, velocidad_aire, humedad_relativa=None, pa=None):
     """
     Cálculo del PMV y PPD según ISO 7730
     Parámetros:
@@ -349,6 +349,11 @@ def fanger(iclo, carga_metabolica, trabajo, temperatura_aire, temp_radiante_medi
         fclo = 1.05 + 0.645 * iclo
 
     hcf = 12.1 * math.sqrt(velocidad_aire)
+    if velocidad_aire > 0.15:
+            temp_radiante_media = ((((temp_globo + 273)**4) + (2.5 * (10**8)) * (velocidad_aire**0.6) * (temp_globo - temperatura_aire))**0.25) - 273
+    else:
+            temp_radiante_media = ((((temp_globo + 273)**4) + (0.42 * (10**8))*((temp_globo - temperatura_aire)**0.25)*(temp_globo - temperatura_aire))**0.25)- 273
+
     temperatura_aireK = temperatura_aire + 273 #Temperatura del aire en Kelvin
     temp_radiante_mediaK = temp_radiante_media + 273 #Temperatura radiante media en Kelvin
 
