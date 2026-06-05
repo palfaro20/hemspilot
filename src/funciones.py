@@ -389,9 +389,9 @@ def fanger(iclo, carga_metabolica, trabajo, temp_aire, temp_globo, velocidad_air
     hl1 = 3.05 * 0.001 * (5733 - 6.99 * mw - pa) #
     hl2 = 0.42 * (mw - 58.15) if mw > 58.15 else 0
     hl3 = 1.7 * 0.00001 * carga_metabolica * (5867 - pa)
-    hl4 = 0.0014 * carga_metabolica * (34 - temperatura_aire)
+    hl4 = 0.0014 * carga_metabolica * (34 - temp_aire)
     hl5 = 3.96 * fclo * (xn**4 - (temp_radiante_mediaK / 100) ** 4)
-    hl6 = fclo * hc * (tcl - temperatura_aire)
+    hl6 = fclo * hc * (tcl - temp_aire)
 
     ts = 0.303 * math.exp(-0.036 * carga_metabolica) + 0.028
     pmv = ts * (mw - hl1 - hl2 - hl3 - hl4 - hl5 - hl6)
