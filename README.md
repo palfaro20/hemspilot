@@ -7,6 +7,7 @@ Sistema para evaluación de estrés térmico laboral basado en normativas intern
 - TGBH (Temperatura de Globo y Bulbo Húmedo)
 - SWreq (Índice de Sudoración Requerida)
 - ISC (Índice de Sobrecarga Calórica)
+- Fanger (confort térmico)
 
 ## Instalación Local
 ```bash
